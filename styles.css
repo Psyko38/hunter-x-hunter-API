@@ -1,0 +1,133 @@
+:root {
+	--white-darken-1: #cfd0b9;
+	--black-lighten-1: #2a2e2f;
+	--red-darken-1: #cc527e;
+}
+
+img {
+	max-width: 100%;
+	border: 2px solid var(--black-lighten-1);
+}
+
+p {
+	margin: 0;
+}
+
+.app {
+	color: var(--black-lighten-1);
+}
+
+.gallery {
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: 12px;
+}
+
+.bold {
+	font-weight: 900;
+}
+
+.btn {
+	background-color: var(--black-lighten-1);
+	color: var(--white-darken-1);
+	border-radius: 999px;
+	border: none;
+	padding: 12px 24px;
+	cursor: pointer;
+	text-transform: uppercase;
+}
+
+.input {
+	padding: 12px;
+	width: 100%;
+	border: none;
+}
+
+.btn.active {
+	background-color: var(--red-darken-1);
+}
+
+.header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.search {
+	display: grid;
+	padding: 0 0 0 12px;
+	justify-items: stretch;
+	align-items: center;
+	grid-template-columns: 24px auto;
+	border: thin solid var(--black-lighten-1);
+	border-radius: 4px;
+}
+
+.card {
+	display: grid;
+	grid-template-rows: 1fr 2fr 2fr;
+	justify-content: stretch;
+	align-content: stretch;
+	gap: 12px 0;
+	background-color: var(--black-lighten-1);
+	padding: 8px;
+	max-width: 18rem;
+	border-radius: 12px;
+}
+
+.card .card-prepend {
+	display: grid;
+	grid-template-columns: 1fr 2fr 1fr;
+	gap: 0 12px;
+}
+
+.card .card-box {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 8px;
+	background-color: var(--white-darken-1);
+	color: var(--black-lighten-1);
+	border: 2px solid var(--black-lighten-1);
+	border-radius: 4px;
+}
+
+.card .card-append {
+	padding: 12px;
+	display: flex;
+	justify-content: stretch;
+	align-items: stretch;
+	background: linear-gradient(
+		90deg,
+		#7d3851 0%,
+		#d4527e 20%,
+		#cc527e 40%,
+		#d4336e 60%,
+		#983f5f 100%
+	);
+}
+
+.card .card-description {
+	align-items: flex-start;
+	justify-content: flex-start;
+	display: flex;
+	width: 100%;
+}
+
+@media screen and (min-width: 550px) {
+	.gallery {
+		grid-template-columns: repeat(2, 1fr);
+	}
+}
+
+@media screen and (min-width: 910px) {
+	.gallery {
+		grid-template-columns: repeat(3, 1fr);
+	}
+}
+
+@media screen and (min-width: 1420px) {
+	.gallery {
+		grid-template-columns: repeat(5, 1fr);
+	}
+}

@@ -96,6 +96,7 @@ buttonAll.addEventListener("click", () => {
 	isFilterSS = false;
 	isFilterSOrMore = false;
 
+	search();
 	resetSectionGallery();
 	displayAllCards(CARDS);
 });
@@ -140,7 +141,10 @@ buttonSS.addEventListener("click", () => {
 
 inputSearch.addEventListener("input", (e) => {
 	const value = e.target.value.toLowerCase();
+	search(value);
+});
 
+async function search(value) {
 	if (!value) {
 		if (isFilterAll) {
 			GetCards();
@@ -150,14 +154,14 @@ inputSearch.addEventListener("input", (e) => {
 			GetCards("rank=SS");
 		}
 	} else {
-		GetCards(`?name=${value}`);
+		GetCards(`name=${value}`);
 	}
-});
+}
 
 GetCards();
 
 async function GetCards(q) {
-	fetch(`http://192.168.1.98:3000/v1/cards?${q}`)
+	fetch(`http://192.168.1.97:3000/v1/cards?${q}`, { method: "GET" })
 		.then((res) => res.json())
 		.then((data) => {
 			console.log(data);

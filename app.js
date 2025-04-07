@@ -1,3 +1,6 @@
+let CARDS = [];
+GETa();
+
 function createCard(nombre, titre, rank, description, img) {
 	const cardElement = document.createElement("div");
 	const cardPrependElement = document.createElement("div");
@@ -96,7 +99,6 @@ buttonAll.addEventListener("click", () => {
 	isFilterSS = false;
 	isFilterSOrMore = false;
 
-	search();
 	resetSectionGallery();
 	displayAllCards(CARDS);
 });
@@ -141,34 +143,46 @@ buttonSS.addEventListener("click", () => {
 
 inputSearch.addEventListener("input", (e) => {
 	const value = e.target.value.toLowerCase();
-	search(value);
-});
 
-async function search(value) {
+	let filteredCards = [];
+
 	if (!value) {
 		if (isFilterAll) {
-			GetCards();
+			filteredCards = CARDS;
 		} else if (isFilterSOrMore) {
-			GetCards("rank=S");
+			filteredCards = filteredCards = CARDS.filter(
+				(card) =>
+					card.rank.charAt(0) === "S" && card.rank.charAt(1) === "S"
+			);
 		} else if (isFilterSS) {
-			GetCards("rank=SS");
+			filteredCards = filteredCards = CARDS.filter(
+				(card) => card.rank.charAt(0) === "S"
+			);
 		}
 	} else {
-		GetCards(`name=${value}`);
+		filteredCards = CARDS.filter((card) =>
+			card.name.toLowerCase().startsWith(value)
+		);
+	}
+
+	resetSectionGallery();
+	displayAllCards(filteredCards);
+});
+
+inputSearch.addEventListener("value", () => {
+	GETa();
+});
+
+async function GETa() {
+	try {
+		const response = await fetch("http://192.168.1.115:3000/v1/cards", {
+			method: "GET",
+		});
+		const exit = await response.json();
+		CARDS = exit;
+	} catch (error) {
+		console.error("Erreur lors de la requête GET :", error);
 	}
 }
 
-GetCards();
-
-async function GetCards(q) {
-	fetch(`http://192.168.1.97:3000/v1/cards?${q}`, { method: "GET" })
-		.then((res) => res.json())
-		.then((data) => {
-			console.log(data);
-			resetSectionGallery();
-			displayAllCards(data);
-		})
-		.catch((error) => {
-			console.log(error);
-		});
-}
+displayAllCards(CARDS);
